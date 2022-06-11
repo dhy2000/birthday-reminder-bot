@@ -9,8 +9,9 @@
 运行 docker 镜像:
 
     docker run -d --restart=unless-stopped --name=birthday-bot \
-        -e PUSH_MESSAGE_KEY="YOUR_PUSH_MESSAGE_KEY" \
+        -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro \
         -v /path/to/birthday/data:/data.xlsx \
+        -e PUSH_MESSAGE_KEY="YOUR_PUSH_MESSAGE_KEY" \
         birthday-bot:latest
 
 其中环境变量 `PUSH_MESSAGE_KEY` 需设置为自己的口令以调用 API。生日数据以 `.xlsx` 格式的 Excel 表格存储，并需将其映射到容器根目录下的 `/data.xlsx`。

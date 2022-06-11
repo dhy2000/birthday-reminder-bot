@@ -9,8 +9,8 @@ RUN echo "" > /etc/apt/sources.list; \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y cron
-RUN echo "0 0 * * 1 python -u bot.py" | crontab
+RUN echo "0 0 * * 1 . /etc/profile; . /key; cd /; python -u bot.py" | crontab
 
 COPY bot.py /
 WORKDIR /
-ENTRYPOINT [ "cron", "-f" ]
+CMD echo "export PUSH_MESSAGE_KEY='$PUSH_MESSAGE_KEY'" > /key; cron -f
