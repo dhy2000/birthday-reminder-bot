@@ -13,4 +13,4 @@ RUN echo "0 0 * * 1 . /etc/profile; . /key; cd /; python -u bot.py" | crontab
 
 COPY bot.py /
 WORKDIR /
-CMD echo "export PUSH_MESSAGE_KEY='$PUSH_MESSAGE_KEY'" > /key; cron -f
+CMD cron -f

@@ -10,11 +10,17 @@
 
     docker run -d --restart=unless-stopped --name=birthday-bot \
         -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro \
-        -v /path/to/birthday/data:/data.xlsx \
-        -e PUSH_MESSAGE_KEY="YOUR_PUSH_MESSAGE_KEY" \
+        -v /path/to/data:/data.xlsx \
+        -v /path/to/key:/key \
         birthday-bot:latest
 
-其中环境变量 `PUSH_MESSAGE_KEY` 需设置为自己的口令以调用 API。生日数据以 `.xlsx` 格式的 Excel 表格存储，并需将其映射到容器根目录下的 `/data.xlsx`。
+生日数据以 `.xlsx` 格式的 Excel 表格存储，并需将其映射到容器根目录下的 `/data.xlsx`。
+
+`key` 文件声明环境变量 `PUSH_MESSAGE_KEY`，该变量值设置为自己的口令以调用 API，格式：
+
+```shell
+export PUSH_MESSAGE_KEY="YOUR_PUSH_MESSAGE_KEY"
+```
 
 ## 数据存储
 
