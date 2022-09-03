@@ -38,7 +38,10 @@ part.apply(insert_to_dict, axis=1)
 
 # 生成提醒消息
 push_message_title = PUSH_MESSAGE_TITLE.format(today=today)
-push_message_content = reduce(lambda x, y : x + ';' + y, map(lambda k : '【{date}】: '.format(date=k) + ", ".join(dict_by_day[k]), dict_by_day), "近期没有朋友过生日")
+if len(dict_by_day) == 0:
+    push_message_content = "近期没有朋友过生日"
+else:
+    push_message_content = reduce(lambda x, y : x + ';' + y, map(lambda k : '【{date}】: '.format(date=k) + ", ".join(dict_by_day[k]), dict_by_day))
 
 print(push_message_content)
 
