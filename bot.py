@@ -28,6 +28,9 @@ part = df[(df['birthday'].isin(day_range)) & ~(df['active'] == 0)].sort_values(b
 print("Find {0} friend(s) in total, {1} friend(s)'s birthday is comming soon:".format(df.shape[0], part.shape[0]))
 print(part['name'].tolist())
 
+not_today = part[part['birthday'] == day_range[0]].empty
+not_coming = part[part['birthday'] == day_range[-1]].empty
+
 # 根据日期分类
 dict_by_day = dict()
 def insert_to_dict(loc):
@@ -51,6 +54,10 @@ if push_message_key is None:
     print("Failed to get key, reminder message is not pushed.")
     sys.exit(0)
 push_message_url = PUSH_MESSAGE_URL.format(key=push_message_key)
+
+if not_today and not_coming:
+    print("No today or coming birthdays, push skipped.")
+    sys.exit(0)
 
 req = requests.post(push_message_url, params={
     "title": push_message_title,
