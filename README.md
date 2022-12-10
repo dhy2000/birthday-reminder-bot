@@ -2,6 +2,22 @@
 
 ## 使用说明
 
+### 本地运行
+
+安装依赖：
+
+```shell
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+```
+
+生日数据以 Excel 表格存储，命名为 `data.xlsx` 放置于本项目目录，执行：
+
+```shell
+python3 -u bot.py
+```
+
+### 部署到服务器
+
 构建 docker 镜像:
 
     docker build -t "birthday-bot" .
@@ -14,7 +30,7 @@
         -v /path/to/key:/key \
         birthday-bot:latest
 
-生日数据以 `.xlsx` 格式的 Excel 表格存储，并需将其映射到容器根目录下的 `/data.xlsx`。
+数据表格用 `-v` 选项挂载到 `/data.xlsx`。
 
 `key` 文件声明环境变量 `PUSH_MESSAGE_KEY`，该变量值设置为自己的口令以调用 API，格式：
 
@@ -60,4 +76,4 @@ Excel 格式示例:
 
 ## 定时提醒
 
-采用 `crontab` 进行定时任务管理，每周一零点提醒一次。
+采用 `crontab` 进行定时任务管理，每日零点整运行一次，如当天或往后第 7 天有人过生日，则推送提醒消息。
