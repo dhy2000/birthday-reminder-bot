@@ -26,13 +26,13 @@ python3 -u bot.py
 
     docker run -d --restart=unless-stopped --name=birthday-bot \
         -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro \
-        -v /path/to/data:/data.xlsx \
-        -v /path/to/key:/key \
+        -v /path/to/data:/app/data.xlsx \
+        -v /path/to/key:/app/key \
         birthday-bot:latest
 
-数据表格用 `-v` 选项挂载到 `/data.xlsx`。
+数据表格用 `-v` 选项挂载到 `/app/data.xlsx`。
 
-`key` 文件声明环境变量 `PUSH_MESSAGE_KEY`，该变量值设置为自己的口令以调用 API，格式：
+消息通知 API 的口令按如下格式保存为 key 文件，并挂载到 `/app/key`。
 
 ```shell
 export PUSH_MESSAGE_KEY="YOUR_PUSH_MESSAGE_KEY"
