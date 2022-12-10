@@ -1,6 +1,7 @@
 FROM python:3.8-slim
 
-RUN pip install --default-timeout=10000 -i https://pypi.tuna.tsinghua.edu.cn/simple pandas openpyxl requests
+COPY requirements.txt .
+RUN pip install --default-timeout=10000 -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 RUN apt-get install apt-transport-https ca-certificates
 RUN echo "" > /etc/apt/sources.list; \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free" >> /etc/apt/sources.list; \
