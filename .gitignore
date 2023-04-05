@@ -1,2 +1,4 @@
 *.xlsx
-key
+*.txt
+key*
+*.sh

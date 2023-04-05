@@ -12,6 +12,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --default-timeout=10000 -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
-RUN echo "0 0 * * 0-6 . /etc/profile; cd /app; . /app/key; python -u bot.py" | crontab
-COPY bot.py .
+RUN echo "0 0 * * 0-6 cd app; python -u main.py -f data.xlsx -k key" | crontab
+COPY main.py .
 CMD cron -f
