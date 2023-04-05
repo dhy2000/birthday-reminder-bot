@@ -48,7 +48,6 @@ def process_lunar_birthday(people: pd.Series):
     # 阳历的今年包含阴历的今年和上一年（春节前）
     lunar_last_year = LunarDate(year=today.year - 1, month=lunar_month, day=lunar_day).toSolarDate()
     lunar_current_year = LunarDate(year=today.year, month=lunar_month, day=lunar_day).toSolarDate()
-    print(people['name'], lunar_last_year, lunar_current_year)
     if lunar_last_year in date_range:       # 阴历生日在春节前
         solar_date = lunar_last_year
     elif lunar_current_year in date_range:  # 阴历生日在春节后
